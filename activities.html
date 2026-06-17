@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activities — Global Digital Governance Lab</title>
+  <meta name="description" content="GDG Lab activities: independent research on digital governance, policy publications, workshops, events, and visiting fellowships from Geneva." />
+  <link rel="canonical" href="https://gdglab.ch/activities.html" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Activities-page specific styles */
+    .activities-nav {
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .activities-nav::-webkit-scrollbar { display: none; }
+
+    .activities-nav-inner {
+      display: flex;
+      gap: 0;
+      min-width: max-content;
+    }
+
+    .activities-nav-inner a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      border-bottom: 3px solid transparent;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color var(--duration) var(--ease), border-color var(--duration) var(--ease);
+    }
+
+    .activities-nav-inner a:hover {
+      color: var(--navy);
+      border-bottom-color: var(--border);
+    }
+
+    .activities-nav-inner a.active {
+      color: var(--navy);
+      border-bottom-color: var(--teal);
+      font-weight: 600;
+    }
+
+    /* Research area item */
+    .research-area {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .research-area:last-child { border-bottom: none; }
+
+    .research-area-number {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+      padding-top: 0.2rem;
+    }
+
+    .research-area-content h3 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+
+    .research-area-content p {
+      font-size: 0.925rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+
+    .research-area-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+
+    /* Publication item */
+    .pub-item {
+      display: flex;
+      gap: var(--space-md);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+
+    .pub-item:last-child { border-bottom: none; }
+
+    .pub-type-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .pub-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .pub-title {
+      font-weight: 600;
+      color: var(--navy);
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+      line-height: 1.4;
+    }
+
+    .pub-authors {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Fellowship card */
+    .fellowship-card {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a4a7e 100%);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fellowship-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+
+    .fellowship-card .eyebrow { color: var(--teal); }
+
+    .fellowship-card h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--white);
+      margin: 0.75rem 0 var(--space-sm);
+      position: relative;
+      z-index: 1;
+    }
+
+    .fellowship-card p {
+      color: rgba(255,255,255,0.75);
+      max-width: 560px;
+      position: relative;
+      z-index: 1;
+      margin-bottom: var(--space-sm);
+    }
+
+    .fellowship-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fellowship-feature {
+      background: rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm);
+      padding: var(--space-sm);
+    }
+
+    .fellowship-feature-title {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .fellowship-feature p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      margin: 0;
+    }
+
+    @media (max-width: 600px) {
+      .fellowship-features { grid-template-columns: 1fr; }
+      .research-area { grid-template-columns: 1fr; }
+      .research-area-number { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ Navigation ══════════════════════════════════════════ -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand" aria-label="GDG Lab — home">
+        <span class="nav-brand-abbr">GDG Lab</span>
+        <span class="nav-brand-sub">Global Digital Governance Lab</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="activities.html" class="active">Activities</a></li>
+        <li><a href="about.html#contact" class="nav-cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══ Page Hero ════════════════════════════════════════════ -->
+  <header class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">Activities</span>
+      </nav>
+      <p class="eyebrow">What We Do</p>
+      <h1 class="display-title">Research, Policy<br>&amp; Convening</h1>
+      <p class="lead" style="margin-top: 1rem;">
+        The Lab pursues its mission through a set of activities, each of which function
+        individually but together form part of a broader institutional commitment to
+        independent, inclusive digital governance research.
+      </p>
+    </div>
+  </header>
+
+  <!-- ═══ Activities sub-navigation ══════════════════════════ -->
+  <nav class="activities-nav" aria-label="Activities sections">
+    <div class="container">
+      <div class="activities-nav-inner">
+        <a href="#research">🔬 Research</a>
+        <a href="#projects">📂 Projects</a>
+        <a href="#events">📅 Events</a>
+        <a href="#publications">📄 Publications</a>
+        <a href="#fellowships">🎓 Fellowships</a>
+        <a href="#annual-report">📊 Annual Report</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ Research Areas ════════════════════════════════════════ -->
+  <section id="research" class="section" aria-labelledby="research-heading">
+    <div class="container">
+      <div class="layout-sidebar">
+        <div>
+          <div class="section-header">
+            <p class="eyebrow">Research</p>
+            <h2 class="section-title" id="research-heading">Independent Research Agenda</h2>
+            <div class="divider"></div>
+            <p>
+              The Lab produces independent, social science-based research on the actors,
+              institutions, norms, and processes shaping digital governance globally. Our research
+              spans current and emerging challenges in the digital governance landscape.
+            </p>
+          </div>
+
+          <div>
+            <div class="research-area" data-reveal>
+              <div class="research-area-number">01</div>
+              <div class="research-area-content">
+                <h3>Digital Sovereignty</h3>
+                <p>
+                  How do states assert control over digital infrastructure, data, and platforms —
+                  and what are the international implications of competing sovereignty claims? This
+                  strand examines the political economy of digital independence, data localisation
+                  policies, and the sovereignty discourse in multilateral negotiations.
+                </p>
+                <div class="research-area-tags">
+                  <span class="pill pill-navy">Data Localisation</span>
+                  <span class="pill pill-navy">Internet Fragmentation</span>
+                  <span class="pill pill-navy">Jurisdictional Conflicts</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="research-area" data-reveal>
+              <div class="research-area-number">02</div>
+              <div class="research-area-content">
+                <h3>AI Governance</h3>
+                <p>
+                  Mapping the rapidly proliferating landscape of AI governance initiatives —
+                  national strategies, regional frameworks, and multilateral processes — and
+                  assessing their coherence, inclusivity, and effectiveness. Particular attention
+                  to the ITU AI for Good process and emerging UN frameworks.
+                </p>
+                <div class="research-area-tags">
+                  <span class="pill pill-blue">UN AI Governance</span>
+                  <span class="pill pill-blue">Regulatory Approaches</span>
+                  <span class="pill pill-blue">Global South</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="research-area" data-reveal>
+              <div class="research-area-number">03</div>
+              <div class="research-area-content">
+                <h3>Data Flows &amp; Digital Standards</h3>
+                <p>
+                  Examining the governance of cross-border data flows and the political economy of
+                  technical standards — who sets them, how they entrench power, and what alternative
+                  frameworks might look like. Includes analysis of trade agreements, bilateral data
+                  deals, and the ITU standardisation process.
+                </p>
+                <div class="research-area-tags">
+                  <span class="pill pill-teal">Cross-border Data</span>
+                  <span class="pill pill-teal">Technical Standards</span>
+                  <span class="pill pill-teal">Trade &amp; Digital</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="research-area" data-reveal>
+              <div class="research-area-number">04</div>
+              <div class="research-area-content">
+                <h3>Digital Public Infrastructure</h3>
+                <p>
+                  Assessing the international dimensions of digital public infrastructure (DPI) —
+                  the shared digital systems that underpin public service delivery — including
+                  their governance, financing, and the role of international organisations in
+                  their diffusion.
+                </p>
+                <div class="research-area-tags">
+                  <span class="pill pill-navy">DPI Governance</span>
+                  <span class="pill pill-navy">Digital Development</span>
+                  <span class="pill pill-navy">UN Agencies</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="research-area" data-reveal>
+              <div class="research-area-number">05</div>
+              <div class="research-area-content">
+                <h3>Platform Accountability</h3>
+                <p>
+                  Analysing international approaches to holding major digital platforms accountable
+                  for their social, economic, and political impacts — including content moderation,
+                  competition policy, and the role of international human rights frameworks.
+                </p>
+                <div class="research-area-tags">
+                  <span class="pill pill-blue">Content Governance</span>
+                  <span class="pill pill-blue">Human Rights</span>
+                  <span class="pill pill-blue">Competition Policy</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="research-area" data-reveal>
+              <div class="research-area-number">06</div>
+              <div class="research-area-content">
+                <h3>Political Economy of Standards</h3>
+                <p>
+                  Standards are not neutral — they encode values, lock in infrastructure choices,
+                  and distribute economic benefits. This strand examines how technical standards
+                  are developed, who dominates these processes, and how the outcomes can be made
+                  more inclusive and legitimate.
+                </p>
+                <div class="research-area-tags">
+                  <span class="pill pill-teal">Standards Bodies</span>
+                  <span class="pill pill-teal">Geopolitics of Tech</span>
+                  <span class="pill pill-teal">Inclusion</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+          <div class="sidebar-card">
+            <div class="sidebar-card-title">Research Approach</div>
+            <div style="font-size: 0.875rem; color: var(--text-mid); display: flex; flex-direction: column; gap: 0.75rem;">
+              <p>
+                All Lab research is <strong>independent</strong> — conducted without direction
+                from funders, governments, or industry partners.
+              </p>
+              <p>
+                We use the analytical tools of the <strong>social sciences</strong>: political
+                economy, international relations, legal analysis, and ethnographic methods.
+              </p>
+              <p>
+                We prioritise <strong>Global South perspectives</strong>, both in our research
+                questions and in our research partnerships.
+              </p>
+            </div>
+          </div>
+
+          <div class="sidebar-card" style="margin-top: var(--space-sm);">
+            <div class="sidebar-card-title">Research Partnerships</div>
+            <div style="font-size: 0.875rem; color: var(--text-mid);">
+              <p>Interested in a research collaboration? Contact the Lab to discuss joint projects.</p>
+              <a href="about.html#contact" class="btn btn-outline-navy btn-sm" style="margin-top: 0.75rem; display: inline-flex;">
+                Enquire →
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Projects ══════════════════════════════════════════════ -->
+  <section id="projects" class="section" style="background: var(--off-white); border-top: 1px solid var(--border);" aria-labelledby="projects-heading">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Current Work</p>
+        <h2 class="section-title" id="projects-heading">Associated Projects</h2>
+        <div class="divider"></div>
+        <p>Active research projects and collaborative initiatives undertaken by Lab researchers.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="activity-card" data-reveal>
+          <div class="activity-card-body">
+            <span class="activity-card-tag tag-research">Research Project</span>
+            <h3 class="activity-card-title">Mapping the WSIS+20 Landscape</h3>
+            <p class="activity-card-meta">Ongoing · 2025–2026</p>
+            <p>
+              A systematic mapping of the positions, interests, and coalitions shaping the
+              WSIS+20 review process, with particular attention to the role of actors from the
+              Global South and civil society.
+            </p>
+          </div>
+          <div class="activity-card-footer">
+            <span class="pill pill-navy">WSIS+20</span>
+            <span class="pill pill-teal">Multilateral</span>
+          </div>
+        </div>
+
+        <div class="activity-card" data-reveal>
+          <div class="activity-card-body">
+            <span class="activity-card-tag tag-research">Research Project</span>
+            <h3 class="activity-card-title">The Global Digital Compact: From Text to Practice</h3>
+            <p class="activity-card-meta">Ongoing · 2024–2026</p>
+            <p>
+              Tracking and analysing the implementation of the Global Digital Compact, examining
+              how its commitments translate into institutional change across the multilateral
+              system.
+            </p>
+          </div>
+          <div class="activity-card-footer">
+            <span class="pill pill-blue">GDC</span>
+            <span class="pill pill-navy">UN System</span>
+          </div>
+        </div>
+
+        <div class="activity-card" data-reveal>
+          <div class="activity-card-body">
+            <span class="activity-card-tag tag-policy">Policy Analysis</span>
+            <h3 class="activity-card-title">AI Governance at the ITU: Actors and Positions</h3>
+            <p class="activity-card-meta">Forthcoming · 2025</p>
+            <p>
+              An analysis of the dynamics of AI governance within the ITU framework — who
+              participates, what positions they hold, and what the prospects are for inclusive
+              multilateral AI standards.
+            </p>
+          </div>
+          <div class="activity-card-footer">
+            <span class="pill pill-teal">AI Governance</span>
+            <span class="pill pill-blue">ITU</span>
+          </div>
+        </div>
+
+        <div class="activity-card" data-reveal>
+          <div class="activity-card-body">
+            <span class="activity-card-tag tag-research">Research Project</span>
+            <h3 class="activity-card-title">Digital Sovereignty in the Global South</h3>
+            <p class="activity-card-meta">Forthcoming · 2025–2026</p>
+            <p>
+              Examining how Global South states articulate and operationalise digital sovereignty
+              claims — in bilateral negotiations, in multilateral fora, and in domestic policy.
+            </p>
+          </div>
+          <div class="activity-card-footer">
+            <span class="pill pill-navy">Digital Sovereignty</span>
+            <span class="pill pill-teal">Global South</span>
+          </div>
+        </div>
+
+        <div class="activity-card" data-reveal>
+          <div class="activity-card-body">
+            <span class="activity-card-tag tag-policy">Policy Brief Series</span>
+            <h3 class="activity-card-title">Digital Governance Briefs for Negotiators</h3>
+            <p class="activity-card-meta">Rolling series · 2025–</p>
+            <p>
+              A series of concise policy briefs designed to support practitioners and
+              negotiators working across the full range of digital governance challenges
+              in Geneva-based multilateral processes.
+            </p>
+          </div>
+          <div class="activity-card-footer">
+            <span class="pill pill-blue">Policy Briefs</span>
+            <span class="pill pill-navy">Practitioners</span>
+          </div>
+        </div>
+
+        <div class="activity-card" data-reveal>
+          <div class="activity-card-body">
+            <span class="activity-card-tag tag-research">Research Project</span>
+            <h3 class="activity-card-title">Platform Accountability &amp; Human Rights in Geneva</h3>
+            <p class="activity-card-meta">Forthcoming · 2026</p>
+            <p>
+              Analysing the intersection of platform accountability debates with the international
+              human rights framework, focusing on Human Rights Council mechanisms and their
+              relationship to other Geneva-based digital governance processes.
+            </p>
+          </div>
+          <div class="activity-card-footer">
+            <span class="pill pill-blue">Platforms</span>
+            <span class="pill pill-teal">Human Rights</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Events Calendar ═══════════════════════════════════════ -->
+  <section id="events" class="section" aria-labelledby="events-heading">
+    <div class="container">
+      <div class="layout-sidebar">
+        <div>
+          <div class="section-header">
+            <p class="eyebrow">Calendar</p>
+            <h2 class="section-title" id="events-heading">Events &amp; Dialogues</h2>
+            <div class="divider"></div>
+            <p>
+              The Lab convenes workshops, closed-door dialogues, and public events at which
+              international organisations, governments, industry, and civil society engage with
+              shared challenges in digital governance.
+            </p>
+          </div>
+
+          <!-- Upcoming events -->
+          <h3 style="font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--space-sm);">Upcoming</h3>
+
+          <div class="events-list" style="margin-bottom: var(--space-lg);">
+
+            <div class="event-row" data-reveal>
+              <div class="event-date-block" aria-label="October 2025">
+                <span class="event-month">Oct</span>
+                <span class="event-day">14</span>
+                <span class="event-year">2025</span>
+              </div>
+              <div class="event-info">
+                <div class="event-title">Digital Governance Roundtable — Closed Dialogue</div>
+                <div class="event-details">
+                  <span>📍 Geneva Graduate Institute</span>
+                  <span>🕐 09:00–17:00</span>
+                </div>
+              </div>
+              <span class="event-type">Workshop</span>
+            </div>
+
+            <div class="event-row" data-reveal>
+              <div class="event-date-block" aria-label="November 2025">
+                <span class="event-month">Nov</span>
+                <span class="event-day">06</span>
+                <span class="event-year">2025</span>
+              </div>
+              <div class="event-info">
+                <div class="event-title">AI Governance in Multilateral Fora — Expert Seminar</div>
+                <div class="event-details">
+                  <span>📍 ITU Headquarters, Geneva</span>
+                  <span>🕐 14:00–18:00</span>
+                </div>
+              </div>
+              <span class="event-type">Seminar</span>
+            </div>
+
+            <div class="event-row" data-reveal>
+              <div class="event-date-block" aria-label="November 2025">
+                <span class="event-month">Nov</span>
+                <span class="event-day">18</span>
+                <span class="event-year">2025</span>
+              </div>
+              <div class="event-info">
+                <div class="event-title">WSIS+20 Side Event — Perspectives from the Global South</div>
+                <div class="event-details">
+                  <span>📍 Palais des Nations, Geneva</span>
+                  <span>🕐 10:30–12:00</span>
+                </div>
+              </div>
+              <span class="event-type">Side Event</span>
+            </div>
+
+            <div class="event-row" data-reveal>
+              <div class="event-date-block" aria-label="February 2026">
+                <span class="event-month">Feb</span>
+                <span class="event-day">03</span>
+                <span class="event-year">2026</span>
+              </div>
+              <div class="event-info">
+                <div class="event-title">Launch — State of Global Digital Governance Report 2025</div>
+                <div class="event-details">
+                  <span>📍 Geneva Graduate Institute</span>
+                  <span>🕐 18:00–20:00</span>
+                </div>
+              </div>
+              <span class="event-type">Launch</span>
+            </div>
+
+            <div class="event-row" data-reveal>
+              <div class="event-date-block" aria-label="March 2026">
+                <span class="event-month">Mar</span>
+                <span class="event-day">12</span>
+                <span class="event-year">2026</span>
+              </div>
+              <div class="event-info">
+                <div class="event-title">Digital Sovereignty Workshop — Invitation Only</div>
+                <div class="event-details">
+                  <span>📍 Global Governance Centre</span>
+                  <span>🕐 All day</span>
+                </div>
+              </div>
+              <span class="event-type">Workshop</span>
+            </div>
+
+            <div class="event-row" data-reveal>
+              <div class="event-date-block" aria-label="May 2026">
+                <span class="event-month">May</span>
+                <span class="event-day">21</span>
+                <span class="event-year">2026</span>
+              </div>
+              <div class="event-info">
+                <div class="event-title">GDG Lab Annual Conference 2026</div>
+                <div class="event-details">
+                  <span>📍 Geneva Graduate Institute</span>
+                  <span>🕐 09:00–18:00</span>
+                </div>
+              </div>
+              <span class="event-type">Conference</span>
+            </div>
+
+          </div>
+
+          <!-- Past events -->
+          <h3 style="font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--space-sm);">Recent Past Events</h3>
+
+          <div class="events-list">
+            <div class="event-row" style="opacity: 0.65;">
+              <div class="event-date-block" style="background: var(--text-muted);" aria-label="June 2025">
+                <span class="event-month">Jun</span>
+                <span class="event-day">10</span>
+                <span class="event-year">2025</span>
+              </div>
+              <div class="event-info">
+                <div class="event-title">Inaugural Seminar — The Global Digital Governance Lab</div>
+                <div class="event-details">
+                  <span>📍 Geneva Graduate Institute</span>
+                </div>
+              </div>
+              <span class="event-type">Inaugural</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+          <div class="sidebar-card">
+            <div class="sidebar-card-title">Event Formats</div>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.875rem; color: var(--text-mid);">
+              <div>
+                <div style="font-weight: 600; color: var(--navy);">Closed-door Dialogues</div>
+                <div>Invitation-only workshops for policymakers, researchers, and practitioners.</div>
+              </div>
+              <div>
+                <div style="font-weight: 600; color: var(--navy);">Public Seminars</div>
+                <div>Open lectures and panel discussions on digital governance topics.</div>
+              </div>
+              <div>
+                <div style="font-weight: 600; color: var(--navy);">Conference Side Events</div>
+                <div>Lab-convened sessions during major digital governance conferences.</div>
+              </div>
+              <div>
+                <div style="font-weight: 600; color: var(--navy);">Annual Conference</div>
+                <div>The Lab's flagship annual gathering of the digital governance community.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card" style="margin-top: var(--space-sm);">
+            <div class="sidebar-card-title">Stay Informed</div>
+            <p style="font-size: 0.875rem; color: var(--text-mid); margin-bottom: 0.75rem;">
+              Register interest for upcoming events or request an invitation to closed dialogues.
+            </p>
+            <a href="about.html#contact" class="btn btn-primary btn-sm" style="display: inline-flex;">
+              Register interest
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Publications ══════════════════════════════════════════ -->
+  <section id="publications" class="section" style="background: var(--off-white); border-top: 1px solid var(--border);" aria-labelledby="pub-heading">
+    <div class="container">
+      <div class="layout-sidebar">
+        <div>
+          <div class="section-header">
+            <p class="eyebrow">Publications</p>
+            <h2 class="section-title" id="pub-heading">Policy-Relevant Analysis</h2>
+            <div class="divider"></div>
+            <p>
+              The Lab produces publications to inform practitioners, negotiators, and
+              policymakers — ranging from concise briefings to in-depth research reports.
+            </p>
+          </div>
+
+          <!-- Annual Report callout -->
+          <div id="annual-report" class="challenge-card gold" style="margin-bottom: var(--space-lg);" data-reveal>
+            <div style="display: flex; align-items: start; justify-content: space-between; gap: var(--space-sm); flex-wrap: wrap;">
+              <div>
+                <h3 class="card-title">🗂️ State of Global Digital Governance Report</h3>
+                <p style="margin-top: 0.5rem;">
+                  An annual report and associated dashboards tracking and interpreting developments
+                  in global digital governance — designed to help actors understand the state of
+                  the field and anticipate emerging challenges.
+                </p>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-muted);">
+                  First edition forthcoming — early 2026.
+                </p>
+              </div>
+              <a href="about.html#contact" class="btn btn-outline-navy btn-sm" style="white-space: nowrap; margin-top: 0.25rem;">
+                Notify me →
+              </a>
+            </div>
+          </div>
+
+          <!-- Publication list -->
+          <div style="background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-md);">
+            <h3 style="font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--space-sm);">Coming Soon</h3>
+
+            <div class="pub-item" data-reveal>
+              <div class="pub-type-icon" style="background: #EFF6FF;">📄</div>
+              <div>
+                <div class="pub-meta">Policy Brief · Forthcoming 2025</div>
+                <div class="pub-title">Understanding the Global Digital Compact: A Guide for Practitioners</div>
+                <div class="pub-authors">GDG Lab Team</div>
+              </div>
+            </div>
+
+            <div class="pub-item" data-reveal>
+              <div class="pub-type-icon" style="background: var(--teal-light);">🔍</div>
+              <div>
+                <div class="pub-meta">Research Report · Forthcoming 2025</div>
+                <div class="pub-title">AI Governance at the ITU: Mapping the Multilateral Landscape</div>
+                <div class="pub-authors">GDG Lab Research Team</div>
+              </div>
+            </div>
+
+            <div class="pub-item" data-reveal>
+              <div class="pub-type-icon" style="background: #FDF5E0;">📊</div>
+              <div>
+                <div class="pub-meta">Annual Report · Forthcoming 2026</div>
+                <div class="pub-title">State of Global Digital Governance Report 2025</div>
+                <div class="pub-authors">Global Digital Governance Lab</div>
+              </div>
+            </div>
+
+            <div class="pub-item" data-reveal>
+              <div class="pub-type-icon" style="background: #EFF6FF;">📄</div>
+              <div>
+                <div class="pub-meta">Policy Brief · Forthcoming 2025</div>
+                <div class="pub-title">Digital Sovereignty: Concepts, Claims, and Consequences for Global Governance</div>
+                <div class="pub-authors">GDG Lab Research Team</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+          <div class="sidebar-card">
+            <div class="sidebar-card-title">Publication Types</div>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.875rem; color: var(--text-mid);">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.2rem;">📄</span>
+                <span><strong>Policy Briefs</strong> — concise, practitioner-focused</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.2rem;">🔍</span>
+                <span><strong>Research Reports</strong> — in-depth analysis</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.2rem;">📊</span>
+                <span><strong>Annual Report</strong> — State of the Field</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.2rem;">💡</span>
+                <span><strong>Op-Eds &amp; Commentary</strong> — timely analysis</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card" style="margin-top: var(--space-sm);">
+            <div class="sidebar-card-title">Subscribe</div>
+            <p style="font-size: 0.875rem; color: var(--text-mid); margin-bottom: 0.75rem;">
+              Be notified when new publications are released.
+            </p>
+            <a href="about.html#contact" class="btn btn-primary btn-sm" style="display: inline-flex;">
+              Subscribe to updates
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Visiting Fellowship ═══════════════════════════════════ -->
+  <section id="fellowships" class="section" aria-labelledby="fellowship-heading">
+    <div class="container">
+      <p class="eyebrow" style="margin-bottom: 0.75rem;">Fellowship Programme</p>
+      <div class="fellowship-card">
+        <p class="eyebrow">Visiting Fellowship</p>
+        <h2 id="fellowship-heading">Visiting Fellowship Programme</h2>
+        <p>
+          The Lab's Visiting Fellowship Programme brings leading researchers — particularly from
+          underrepresented regions — into Geneva's multilateral ecosystem for extended residencies.
+          Fellows engage with the Lab's research agenda and with the diplomatic, organisational,
+          and civil society community that makes Geneva a unique site for digital governance work.
+        </p>
+
+        <div class="fellowship-features">
+          <div class="fellowship-feature">
+            <div class="fellowship-feature-title">Duration</div>
+            <p>3 to 6 month residencies, based at the Geneva Graduate Institute</p>
+          </div>
+          <div class="fellowship-feature">
+            <div class="fellowship-feature-title">Who Can Apply</div>
+            <p>Researchers from any discipline with a focus on digital governance, particularly from the Global South</p>
+          </div>
+          <div class="fellowship-feature">
+            <div class="fellowship-feature-title">What Fellows Do</div>
+            <p>Pursue independent research, contribute to Lab projects, and participate in Geneva's digital governance ecosystem</p>
+          </div>
+          <div class="fellowship-feature">
+            <div class="fellowship-feature-title">What We Offer</div>
+            <p>Desk space, institutional affiliation, seminar access, and introductions across Geneva's multilateral network</p>
+          </div>
+        </div>
+
+        <div style="position: relative; z-index: 1;">
+          <a href="about.html#contact" class="btn btn-primary" style="margin-right: 0.75rem;">
+            Express interest
+          </a>
+          <a href="about.html#contact" class="btn btn-outline">
+            Learn more about the programme
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Footer ═══════════════════════════════════════════════ -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand-name">GDG Lab</div>
+          <div class="footer-brand-sub">Global Digital Governance Lab</div>
+          <p>
+            Independent social science research and global convening on digital governance,
+            embedded in the Geneva Graduate Institute's Global Governance Centre.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-title">Navigation</div>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About the Lab</a></li>
+            <li><a href="activities.html">Activities</a></li>
+            <li><a href="about.html#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-title">About</div>
+          <ul>
+            <li><a href="about.html#mission">Mission &amp; Vision</a></li>
+            <li><a href="about.html#leadership">Leadership</a></li>
+            <li><a href="about.html#advisory-board">Advisory Board</a></li>
+            <li><a href="about.html#context">Context</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-title">Activities</div>
+          <ul>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#fellowships">Fellowships</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2025 Global Digital Governance Lab — Geneva Graduate Institute</span>
+        <span class="footer-gg-badge">
+          An initiative of the
+          <a href="https://www.graduateinstitute.ch" target="_blank" rel="noopener noreferrer">
+            Global Governance Centre
+          </a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
