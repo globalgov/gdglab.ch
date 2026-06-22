@@ -31,7 +31,7 @@
   --shadow-lg:   0 8px 32px rgba(28, 50, 104, 0.16);
 
   /* Typography */
-  --font-serif:  'Playfair Display', Georgia, serif;
+  --font-serif:  'Inter', system-ui, -apple-system, sans-serif;@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
   --font-sans:   'Inter', system-ui, -apple-system, sans-serif;
 
   /* Spacing scale */
@@ -547,7 +547,8 @@ ul {
 
 .statement-block .display-title {
   color: var(--white);
-  font-style: italic;
+  font-weight: 600;
+  font-style: normal;
   font-size: clamp(1.4rem, 2.8vw, 2rem);
   margin-bottom: var(--space-sm);
   position: relative;
@@ -902,7 +903,7 @@ ul {
 .pull-quote p {
   font-family: var(--font-serif);
   font-size: 1.15rem;
-  font-style: italic;
+  font-style: normal;
   color: var(--navy);
   line-height: 1.65;
 }
