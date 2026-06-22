@@ -31,7 +31,7 @@
   --shadow-lg:   0 8px 32px rgba(28, 50, 104, 0.16);
 
   /* Typography */
-  --font-serif:  'Inter', system-ui, -apple-system, sans-serif;@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+  --font-serif:  'Inter', system-ui, -apple-system, sans-serif; @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
   --font-sans:   'Inter', system-ui, -apple-system, sans-serif;
 
   /* Spacing scale */
