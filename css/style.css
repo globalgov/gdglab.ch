@@ -546,9 +546,10 @@ ul {
 }
 
 .statement-block .display-title {
+  font-family: var(--font-sans);   /* was inherited Playfair */
+  font-weight: 600;               /* add weight back, since sans at 400 looks thin large */
+  font-style: normal;            /* was italic — this is half the antique feel */
   color: var(--white);
-  font-weight: 600;
-  font-style: normal;
   font-size: clamp(1.4rem, 2.8vw, 2rem);
   margin-bottom: var(--space-sm);
   position: relative;
